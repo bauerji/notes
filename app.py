@@ -47,18 +47,18 @@ def get_giff_image_url(tag: str) -> str:
 
 
 def x():
-    a = {"Dur": dur, "Moll": moll}
-    b = choice(list(a.keys()))
+    scales = {"Dur": dur, "Moll": moll}
+    scale_name = choice(list(scales.keys()))
 
-    c = a[b]
+    scale = scales[scale_name]
 
-    key = choice(list(c.keys()))
+    tone = choice(list(scale.keys()))
 
-    correct = c[key]
-    wrong_options = list({value for value in c.values() if value != correct})[:3]
+    correct = scale[tone]
+    wrong_options = list({value for value in scale.values() if value != correct})[:3]
     all_options = [correct] + wrong_options
     shuffle(all_options)
-    return key, all_options, correct, b
+    return tone, all_options, correct, scale_name
 
 
 app = Flask(__name__)
@@ -66,7 +66,7 @@ app = Flask(__name__)
 
 @app.route("/", methods=["GET"])
 def hello_world():
-    key, all_options, correct, b = x()
+    tone, all_options, correct, scale_name = x()
     value_1, value_2, value_3, value_4 = all_options
     return render_template(
         "index.html",
@@ -74,15 +74,15 @@ def hello_world():
         value_2=value_2,
         value_3=value_3,
         value_4=value_4,
-        question=f"{key} {b}",
+        question=f"{tone} {scale_name}",
         correct=correct,
     )
 
 
 @app.route("/guess", methods=["POST"])
 def guess():
-    x = request.form.get("action")
-    guess, correct = x.split(":")
+    tones = request.form.get("action")
+    answer, correct = tones.split(":")
     if guess == correct:
         return render_template("result.html", message="correct", img_src=get_giff_image_url("success"))
     return render_template(

@@ -84,7 +84,11 @@ def guess():
     tones = request.form.get("action")
     answer, correct = tones.split(":")
     if guess == correct:
-        return render_template("result.html", message="correct", img_src=get_giff_image_url("success"))
+        return render_template(
+            "result.html", message="correct", img_src=get_giff_image_url("success")
+        )
     return render_template(
-        "result.html", message=f"Wrong - the correct response is {correct}", img_src=get_giff_image_url("fail")
+        "result.html",
+        message=f"Wrong - the correct response is {correct}",
+        img_src=get_giff_image_url("fail"),
     )

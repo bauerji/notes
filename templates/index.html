@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>{{ question }}</p>
+
+<form action="/guess" method="post">
+<input type="radio" id="1" name="action" value="{{value_1}}:{{correct}}">
+<label for="1">{{value_1}}</label><br>
+
+<input type="radio" id="2" name="action" value="{{value_2}}:{{correct}}">
+<label for="1">{{value_2}}</label><br>
+
+<input type="radio" id="3" name="action" value="{{value_3}}:{{correct}}">
+<label for="1">{{value_3}}</label><br>
+
+<input type="radio" id="4" name="action" value="{{value_4}}:{{correct}}">
+<label for="1">{{value_4}}</label><br>
+
+  <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>

@@ -1,4 +1,5 @@
 from random import choice, shuffle
+import requests
 
 from flask import Flask, render_template, request
 
@@ -33,6 +34,16 @@ dur = {
     "B": "2b",
     "F": "1b",
 }
+
+
+def get_giff_image_url(tag: str) -> str:
+    url = f"https://api.giphy.com/v1/gifs/random?api_key=0UTRbFtkMxAplrohufYco5IY74U8hOes&tag={tag}&rating=pg-13"
+    try:
+        response = requests.get(url)
+        response.raise_for_status()
+        return response.json()["data"]["images"]["fixed_width"]["url"]
+    except:
+        return ""
 
 
 def x():
@@ -73,7 +84,7 @@ def guess():
     x = request.form.get("action")
     guess, correct = x.split(":")
     if guess == correct:
-        return render_template("result.html", message="correct")
+        return render_template("result.html", message="correct", img_src=get_giff_image_url("success"))
     return render_template(
-        "result.html", message=f"Wrong - the correct response is {correct}"
+        "result.html", message=f"Wrong - the correct response is {correct}", img_src=get_giff_image_url("fail")
     )

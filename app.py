@@ -65,7 +65,7 @@ app = Flask(__name__)
 
 
 @app.route("/", methods=["GET"])
-def hello_world():
+def index():
     tone, all_options, correct, scale_name = x()
     value_1, value_2, value_3, value_4 = all_options
     return render_template(

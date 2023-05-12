@@ -83,7 +83,7 @@ def hello_world():
 def guess():
     tones = request.form.get("action")
     answer, correct = tones.split(":")
-    if guess == correct:
+    if answer == correct:
         return render_template(
             "result.html", message="correct", img_src=get_giff_image_url("success")
         )
